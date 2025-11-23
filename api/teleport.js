@@ -2,28 +2,26 @@
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
+    // Si el método no es POST, directamente devolvemos los datos
+    const { placeId, gameInstanceId, animalData, timestamp, source } = req.body;
+
     return res.status(405).json({
-      message: 'Method Not Allowed'
+      placeId,
+      gameInstanceId,
+      animalData,
+      timestamp,
+      source
     });
   }
 
   try {
     const { placeId, gameInstanceId, animalData, timestamp, source } = req.body;
 
-    if (!placeId || !gameInstanceId || !animalData || !timestamp || !source) {
-      return res.status(400).json({
-        message: 'Bad Request: Missing required data',
-        placeId,
-        gameInstanceId,
-        animalData,
-        timestamp,
-        source
-      });
-    }
-
+    // Lógica para procesar la solicitud
     console.log('Received data:', { placeId, gameInstanceId, animalData, timestamp, source });
 
-    return res.status(200).json({
+    // Respuesta exitosa
+    res.status(200).json({
       message: 'Data received successfully!',
       placeId,
       gameInstanceId,
@@ -31,11 +29,9 @@ export default async function handler(req, res) {
       timestamp,
       source
     });
-
   } catch (error) {
     console.error('Error:', error);
-    return res.status(500).json({
-      message: 'Internal Server Error',
+    res.status(500).json({
       placeId: req.body.placeId,
       gameInstanceId: req.body.gameInstanceId,
       animalData: req.body.animalData,
