@@ -1,4 +1,3 @@
-// api/teleport.js
 const express = require('express');
 const app = express();
 
@@ -22,7 +21,9 @@ app.post('/api/teleport', (req, res) => {
         message: "Data received successfully",
         data: { placeId, gameInstanceId, animalData },
     });
-});
+};
 
-// Exportar la función handler para que Vercel la maneje
-module.exports = app;
+// Asegúrate de exportar como un handler para Vercel
+module.exports = (req, res) => {
+    app(req, res); // Usamos app(req, res) para manejar la solicitud
+};
