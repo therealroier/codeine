@@ -28,6 +28,3 @@ app.post('/api/teleport', (req, res) => {
 module.exports = (req, res) => {
     app(req, res); // Usamos app(req, res) para manejar la solicitud
 };
-
-// O también puedes exportar directamente el servidor si usas la siguiente sintaxis:
-// module.exports = app;
