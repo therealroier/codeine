@@ -1,5 +1,4 @@
 const express = require('express');
-const fetch = require('node-fetch');  // Usamos 'node-fetch' para enviar la solicitud POST
 const app = express();
 
 // Middleware para parsear JSON
@@ -20,7 +19,7 @@ app.post('/api/teleport', async (req, res) => {
     // Log para verificar que los datos fueron recibidos correctamente
     console.log("Received data:", { placeId, gameInstanceId, animalData });
 
-    // Enviar los datos a la API de Vercel
+    // Enviar los datos a la API de Vercel usando fetch nativo de Node.js 22.x
     try {
         const response = await fetch(VERCEL_API_URL, {
             method: 'POST',
@@ -54,5 +53,5 @@ app.post('/api/teleport', async (req, res) => {
     }
 });
 
-// Iniciar el servidor en Vercel
+// Exportar la función handler para que Vercel la maneje
 module.exports = app;
