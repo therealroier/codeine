@@ -1,24 +1,33 @@
-const fetch = require('node-fetch'); // Asegúrate de que esté correctamente instalado
+const express = require('express');
+const fetch = require('node-fetch');
+const app = express();
 
-const sendToVercelServer = async (placeId, jobId, animalData) => {
-    const payload = {
-        placeId: placeId,
-        gameInstanceId: jobId,
-        animalData: animalData,
-        timestamp: Date.now(),
-        source: "roblox_script"
-    };
+// Middleware para parsear JSON
+app.use(express.json());
 
-    try {
-        const response = await fetch('https://codeineee.vercel.app/api/teleport', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-        });
+// Endpoint POST para recibir datos
+app.post('/api/teleport', (req, res) => {
+    const { placeId, gameInstanceId, animalData } = req.body;
 
-        const result = await response.json();
-        console.log('Response from Vercel:', result);
-    } catch (error) {
-        console.error('Error in Vercel API communication:', error);
+    if (!placeId || !gameInstanceId || !animalData) {
+        return res.status(400).json({ error: "Missing required data" });
     }
+
+    // Lógica para manejar los datos (esto es solo un ejemplo)
+    console.log("Received data:", { placeId, gameInstanceId, animalData });
+
+    // Responder con éxito
+    return res.json({
+        success: true,
+        message: "Data received successfully",
+        data: { placeId, gameInstanceId, animalData },
+    });
+});
+
+// Exportar la función handler para que Vercel la maneje
+module.exports = (req, res) => {
+    app(req, res); // Usamos app(req, res) para manejar la solicitud
 };
+
+// O también puedes exportar directamente el servidor si usas la siguiente sintaxis:
+// module.exports = app;
