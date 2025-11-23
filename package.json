@@ -2,13 +2,12 @@
   "name": "my-api",
   "version": "1.0.0",
   "description": "My API for teleporting animals",
-  "main": "api/teleport.js",  
+  "main": "api/teleport.js",
   "scripts": {
-    "start": "node api/teleport.js"  
+    "start": "node api/teleport.js"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "node-fetch": "^2.6.1" 
+    "express": "^4.17.1"
   },
   "devDependencies": {},
   "engines": {
