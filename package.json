@@ -1,18 +1,18 @@
 {
-  "name": "my-api",
-  "version": "1.0.0",
-  "description": "My API for teleporting animals",
+  "name": "my-api",                       // El nombre de tu API, puedes cambiarlo a algo más relevante.
+  "version": "1.0.0",                     // La versión del proyecto.
+  "description": "My API for teleporting animals", // Descripción del proyecto.
   "scripts": {
-    "start": "node api/teleport.js"
+    "start": "node api/teleport.js"      // El comando que ejecutará Vercel para iniciar el servidor (en este caso, con Node.js).
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "node-fetch": "^2.6.1"
+    "express": "^4.17.1",                // La dependencia principal de Express, que es el framework de Node.js que utilizamos para gestionar las rutas.
+    "node-fetch": "^2.6.1"                // `node-fetch` se utiliza para realizar solicitudes HTTP en Node.js, si necesitas hacer peticiones a otros servicios desde el servidor.
   },
   "devDependencies": {
-    "vercel": "^21.1.0"
+    "vercel": "^21.1.0"                  // La dependencia de Vercel para gestionar el despliegue en su plataforma.
   },
   "engines": {
-    "node": "22.x"
+    "node": "22.x"                        // La versión de Node.js que quieres que Vercel use para tu proyecto.
   }
 }
