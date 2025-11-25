@@ -1,17 +1,18 @@
 {
-  "name": "my-api",                       
-  "version": "1.0.0",                   
-  "description": "My API for teleporting animals", 
+  "name": "my-api",
+  "version": "1.0.0",
+  "description": "My API for teleporting animals",
   "scripts": {
-    "start": "node api/teleport.js"    
+    "start": "node api/teleport.js"
+  },
   "dependencies": {
-    "express": "^4.17.1",            
-    "node-fetch": "^2.6.1"              
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "vercel": "^21.1.0"                
+    "vercel": "^21.1.0"
   },
   "engines": {
-    "node": "22.x"                  
+    "node": "22.x"
   }
 }
