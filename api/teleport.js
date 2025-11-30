@@ -12,6 +12,7 @@ function cleanExpiredData() {
 setInterval(cleanExpiredData, 1000);
 
 module.exports = async (req, res) => {
+  
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -94,6 +95,66 @@ module.exports = async (req, res) => {
                     message: 'Servidor agregado a la cola',
                     queueLength: teleportQueue.length,
                     added: !exists
+                });
+            }
+
+            if (action === "getTeleportData") {
+                if (teleportQueue.length > 0) {
+                    const firstItem = teleportQueue[0];
+                    const timeLeft = Math.max(0, 20000 - (Date.now() - firstItem.timestamp));
+                    
+                    return res.status(200).json({
+                        success: true,
+                        data: {
+                            placeId: firstItem.placeId,
+                            gameInstanceId: firstItem.gameInstanceId,
+                            animalData: firstItem.animalData, 
+                            timeLeft: timeLeft,
+                            queuePosition: 1,
+                            queueLength: teleportQueue.length
+                        }
+                    });
+                } else {
+                    return res.status(200).json({
+                        success: true,
+                        data: null,
+                        message: 'No hay servidores en la cola'
+                    });
+                }
+            }
+
+            if (action === "removeFirstFromQueue") {
+                if (teleportQueue.length > 0) {
+                    const removed = teleportQueue.shift();
+                    console.log('✅ Servidor removido de la cola:', {
+                        gameInstanceId: removed.gameInstanceId,
+                        animal: removed.animalData?.displayName,
+                        generation: removed.animalData?.generation 
+                    });
+                    console.log('Cola restante:', teleportQueue.length);
+                    
+                    return res.status(200).json({
+                        success: true,
+                        message: 'Servidor removido de la cola',
+                        removed: removed.gameInstanceId,
+                        queueLength: teleportQueue.length
+                    });
+                }
+                
+                return res.status(200).json({
+                    success: true,
+                    message: 'Cola vacía'
+                });
+            }
+
+            // Limpiar TODA la cola
+            if (action === "clearQueue") {
+                const count = teleportQueue.length;
+                teleportQueue = [];
+                console.log('Cola limpiada:', count + ' servidores');
+                return res.status(200).json({
+                    success: true,
+                    message: `Cola limpiada (${count} servidores)`
                 });
             }
 
